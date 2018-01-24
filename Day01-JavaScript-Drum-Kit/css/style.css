@@ -1,0 +1,50 @@
+body,html {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    
+}
+body{
+    background: url(http://i.imgur.com/b9r5sEL.jpg)  center center;
+    font-size: 10px;
+    background-size: cover;
+}
+
+.keys{
+    display: flex;
+    flex: 1;
+    min-height: 33.33333vh;
+    align-items: center;
+    justify-content: center;
+}
+.key{
+    border: 0.1rem solid black;
+    border-radius: 5px;
+    margin: 1rem;
+    font-size: 1.2rem;
+    padding: 1rem;
+    transition: all 0.07s; /*動畫速度*/
+    width: 10rem;
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.4);
+    text-shadow: 0 0 5px black;
+}
+
+.playing {
+    transform: scale(1.1); /*scale放大效果*/
+    border-color: #ffcc00;
+    box-shadow: 0 0 10px #ffcc00;
+
+}
+kbd {
+    display: block;
+    font-size: 40px;
+}
+
+.sound{
+    font-size:1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px; /**/
+    color: #ffcc00;
+}
