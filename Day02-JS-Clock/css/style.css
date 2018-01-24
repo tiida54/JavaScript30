@@ -16,10 +16,9 @@ body{
 }
 
 .clock{
-    background: url(https://static6.depositphotos.com/1027309/622/v/950/depositphotos_6223977-stock-illustration-old-clock-face.jpg) center center;
-    background-position-x: -46px;
-    width: 72rem;
-    height: 72rem;
+    background:#eee url(../clock.jpg) no-repeat center center;
+    width: 90rem;
+    height: 90rem;
     border: 20px solid #91D0CD;
     border-radius: 50%;
     margin: 50px auto;
