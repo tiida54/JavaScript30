@@ -1,0 +1,41 @@
+:root{
+    --base:#ffcc00;
+    --spacing: 10px;
+    --grayscale: 10%;
+}
+
+img{
+    padding: var(--spacing);
+    background: var(--base);
+    filter: grayscale(var(--grayscale));
+}
+
+.h1{
+    color: var(--base);
+}
+body{
+    text-align: center;
+    
+}
+
+body{
+    background: #193549;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    font-size: 50px;
+}
+
+.controls{
+    margin-bottom: 50px;
+    text-transform:capitalize;
+}
+
+a{
+    color:  var(--base);
+    text-decoration: none;
+}
+
+input{
+    width: 100px;
+}
