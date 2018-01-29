@@ -16,9 +16,9 @@
 
 <body>
     <div class="controls">
-            <h2>用滑鼠在下方
-                    <span class="h1">畫些東西！</span>
-                </h2>
+        <h2>用滑鼠在下方
+            <span class="h1">畫些東西！</span>
+        </h2>
         <label for="spacing">spacing</label>
         <input type="range" name="spacing" min="10" max="40" value="10" data-sizing="px">
 
@@ -29,29 +29,29 @@
 
     </div>
 
-    <canvas id="draw" white="800" height="800"></canvas>
+    <canvas id="draw" width="800" height="800"></canvas>
 
     <!-- Optional JavaScript -->
     <script>
-            const inputs = document.querySelectorAll('.controls input');
-            const buttons = document.querySelectorAll('.controls button');
+        const inputs = document.querySelectorAll('.controls input');
+        const buttons = document.querySelectorAll('.controls button');
 
-            function handleUpdate(){
-                // console.log(this.dataset.sizing);
-                const suffix = this.dataset.sizing || '';//取出對象的data-*屬性
-                document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);//設置新的數值
-            
-                ctx.strokeStyle =  this.value;
-                ctx.lineWidth =  this.value;
-            }
+        function handleUpdate() {
+            // console.log(this.dataset.sizing);
+            const suffix = this.dataset.sizing || '';//取出對象的data-*屬性
+            document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);//設置新的數值
 
-            function delCanvas(){
-                ctx.clearRect(0,0,800,800);
-            }
+            ctx.strokeStyle = this.value;
+            ctx.lineWidth = this.value;
+        }
 
-            inputs.forEach(input => input.addEventListener('change', handleUpdate));
-            inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
-            buttons.forEach(button => button.addEventListener('click', delCanvas)); 
+        function delCanvas() {
+            ctx.clearRect(0, 0, 1960, 1200);
+        }
+
+        inputs.forEach(input => input.addEventListener('change', handleUpdate));
+        inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+        buttons.forEach(button => button.addEventListener('click', delCanvas));
 
         //canvas
         const canvas = document.querySelector('#draw');
@@ -81,7 +81,7 @@
             ctx.lineTo(e.offsetX, e.offsetY);
             ctx.stroke();
             [lastX, lastY] = [e.offsetX, e.offsetY];
-            
+
             // hue++;
             // if (hue >= 360) {
             //     hue = 0;
