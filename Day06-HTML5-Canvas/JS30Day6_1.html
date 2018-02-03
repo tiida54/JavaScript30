@@ -17,7 +17,7 @@
 <body>
     <div class="controls">
         <h2>用滑鼠在下方畫些東西！</h2>
-        <ul>       
+        <ul>
             <li>Choose a size:
                 <button id="chooseSmallSimpleTools" type="button" value="5" data-sizing="px">Small</button>
                 <button id="chooseNormalSimpleSizes" type="button" value="10" data-sizing="px">Normal</button>
@@ -34,7 +34,7 @@
             </li>
             <li>
                 <span class="highlight">Choose a tool: </span>
-                <button id="chooseMarkerSimpleTools" type="button" value="#000000">Black</button>
+                <button id="chooseMarkerSimpleTools" type="button" value="#333333">Pencil</button>
                 <button id="chooseEraserSimpleTools" type="button" value="wheat">Eraser</button>
             </li>
             <li>Clear the canvas:
@@ -49,7 +49,7 @@
     <script>
         const inputs = document.querySelectorAll('.controls input');
         const buttons = document.querySelectorAll('.controls button');
-        
+
         function handleUpdate() {
             // console.log(this.dataset.sizing);
             const suffix = this.dataset.sizing || '';//取出對象的data-*屬性
