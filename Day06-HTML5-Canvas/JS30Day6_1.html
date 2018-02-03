@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style_1.css">
+
+    <title>JS30Day6-HTML5-Canvas-BulbCat</title>
+</head>
+
+<body>
+    <div class="controls">
+        <h2>用滑鼠在下方畫些東西！</h2>
+        <ul>       
+            <li>Choose a size:
+                <button id="chooseSmallSimpleTools" type="button" value="5" data-sizing="px">Small</button>
+                <button id="chooseNormalSimpleSizes" type="button" value="10" data-sizing="px">Normal</button>
+                <button id="chooseLargeSimpleTools" type="button" value="15" data-sizing="px">Large</button>
+                <button id="chooseHugeSimpleTools" type="button" value="20" data-sizing="px">Huge</button>
+            </li>
+            <li>Choose a color:
+                <button id="choosePurpleSimpleTools" type="button" value="#cb3594">Purple</button>
+                <button id="chooseGreenSimpleTools" type="button" value="#659b41">Green</button>
+                <button id="chooseYellowSimpleTools" type="button" value="#ffcf33">Yellow</button>
+                <button id="chooseBrownSimpleTools" type="button" value="#986928">Brown</button>
+                <label for="base">All color:</label>
+                <input type="color" name="base" value="#ff0000">
+            </li>
+            <li>
+                <span class="highlight">Choose a tool: </span>
+                <button id="chooseMarkerSimpleTools" type="button" value="#000000">Black</button>
+                <button id="chooseEraserSimpleTools" type="button" value="wheat">Eraser</button>
+            </li>
+            <li>Clear the canvas:
+                <button id="clearCanvasSimpleTools" type="button" onclick="delCanvas()">Clear</button>
+            </li>
+        </ul>
+    </div>
+
+    <canvas id="draw" width="800" height="800"></canvas>
+
+    <!-- Optional JavaScript -->
+    <script>
+        const inputs = document.querySelectorAll('.controls input');
+        const buttons = document.querySelectorAll('.controls button');
+        
+        function handleUpdate() {
+            // console.log(this.dataset.sizing);
+            const suffix = this.dataset.sizing || '';//取出對象的data-*屬性
+            console.log(suffix);
+            document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);//設置新的數值
+            ctx.strokeStyle = this.value;
+            ctx.lineWidth = this.value;
+        }
+
+        function delCanvas() {
+            //ctx.clearRect(0,0,1960,1200);
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clears the canvas
+        }
+
+        inputs.forEach(input => input.addEventListener('change', handleUpdate));
+        inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+        buttons.forEach(button => button.addEventListener('click', handleUpdate));
+
+        //buttons.forEach(button => button.addEventListener('click', delCanvas));
+
+        //canvas
+        const canvas = document.querySelector('#draw');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        ctx.strokeStyle = '#659b41'; // 線條顏色
+        ctx.lineJoin = 'round'; // 線條連接樣式（轉角）
+        ctx.lineCap = 'round'; // 線條結束樣式
+        ctx.lineWidth = 5; //線條寬度
+
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        //let hue = 0;
+        //let direction = true;
+
+        function draw(e) {
+            if (!isDrawing) { return; }// 判斷是否`isDrawing`，`false`則`return`不觸發此function
+            // console.log(e);
+            //ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+
+        }
+
+        canvas.addEventListener('mousemove', draw);
+        // 滑鼠放開，滑鼠離開 都將isDrawing改為false不觸發function draw
+        // 當滑鼠按下時，將目前滑鼠的位置設定為變數中的X、Y並讓isDrawing為true
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseout', () => isDrawing = false);
+    </script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

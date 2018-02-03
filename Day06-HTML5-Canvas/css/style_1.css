@@ -1,0 +1,68 @@
+:root{
+    --base:#BADA55;
+    --spacing: 10px;
+}
+
+img{
+    padding: var(--spacing);
+    background: var(--base);
+}
+
+html,body{
+    margin: 0;
+}
+
+body{
+    background: #193549;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    font-size: 36px;
+}
+
+.controls{
+    margin: 20px 10px;
+    text-transform:capitalize;
+}
+
+a{
+    color:  var(--base);
+    text-decoration: none;
+}
+
+input{
+    width: 120px;
+}
+/*add*/
+canvas{
+    background:wheat;
+}
+button {
+    border: 0.1rem solid black;
+    border-radius: 5px;
+    margin: 0.2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.4rem ;
+    width: 8rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+    text-shadow: 0 0 5px black;
+    cursor: pointer;
+
+    text-transform: uppercase;
+    letter-spacing: 1px; /**/
+    color: #ccc;
+}
+#choosePurpleSimpleTools{
+    background:#cb3594;
+}
+#chooseGreenSimpleTools{
+    background:#659b41;
+}
+#chooseYellowSimpleTools{
+    background:#ffcf33;
+}
+#chooseBrownSimpleTools{
+    background:#986928;
+}
