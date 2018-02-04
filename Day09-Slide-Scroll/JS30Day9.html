@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>JS30Day9-Slide-Scroll-BulbCat</title>
+</head>
+
+<body>
+  <div class="site-wrap">
+
+    <h1>Slide in on Scroll</h1>
+
+    <p>Consectetur adipisicing elit. Tempore tempora rerum, est autem cupiditate, corporis a qui libero ipsum delectus quidem
+      dolor at nulla, adipisci veniam in reiciendis aut asperiores omnis blanditiis quod quas laborum nam! Fuga ad tempora
+      in aspernatur pariaturlores sunt esse magni, ut, dignissimos.</p>
+    <p>Lorem ipsum cupiditate, corporis a qui libero ipsum delectus quidem dolor at nulla, adipisci veniam in reiciendis aut
+      asperiores omnis blanditiis quod quas laborum nam! Fuga ad tempora in aspernatur pariatur fugit quibusdam dolores sunt
+      esse magni, ut, dignissimos.</p>
+    <p>Adipisicing elit. Tempore tempora rerum..</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore tempora rerum, est autem cupiditate, corporis a qui
+      libero ipsum delectus quidem dolor at nulla, adipisci veniam in reiciendis aut asperiores omnis blanditiis quod quas
+      laborum nam! Fuga ad tempora in aspernatur pariatur fugit quibusdam dolores sunt esse magni, ut, dignissimos.</p>
+
+    <img src="" data-imglink="http://unsplash.it/400/400" class="align-left slide-in">
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, deserunt facilis et iste corrupti omnis tenetur
+      est. Iste ut est dicta dolor itaque adipisci, dolorum minima, veritatis earum provident error molestias. Ratione magni
+      illo sint vel velit ut excepturi consectetur suscipit, earum modi accusamus voluptatem nostrum, praesentium numquam,
+      reiciendis voluptas sit id quisquam. Consequatur in quis reprehenderit modi perspiciatis necessitatibus saepe, quidem,
+      suscipit iure natus dignissimos ipsam, eligendi deleniti accusantium, rerum quibusdam fugit perferendis et optio recusandae
+      sed ratione. Culpa, dolorum reprehenderit harum ab voluptas fuga, nisi eligendi natus maiores illum quas quos et aperiam
+      aut doloremque optio maxime fugiat doloribus. Eum dolorum expedita quam, nesciunt</p>
+
+    <img src="" data-imglink="http://unsplash.it/400/401" class="align-right slide-in">
+    <img src="" data-imglink="http://unsplash.it/400/402" class="align-right slide-in">
+    <img src="" data-imglink="http://unsplash.it/400/403" class="align-right slide-in">
+
+    <img src="" data-imglink="http://unsplash.it/200/400" class="align-left slide-in">
+    <img src="" data-imglink="http://unsplash.it/200/401" class="align-left slide-in">
+    <img src="" data-imglink="http://unsplash.it/200/402" class="align-left slide-in">
+
+    <img src="" data-imglink="http://unsplash.it/200/200" class="align-right slide-in">
+    <img src="" data-imglink="http://unsplash.it/200/201" class="align-right slide-in">
+    <img src="" data-imglink="http://unsplash.it/200/202" class="align-right slide-in">
+
+    <img src="" data-imglink="http://unsplash.it/300/400" class="align-right slide-in">
+    <img src="" data-imglink="http://unsplash.it/300/401" class="align-right slide-in">
+    <img src="" data-imglink="http://unsplash.it/300/402" class="align-right slide-in">
+
+  </div>
+
+  <!-- Optional JavaScript -->
+  <script>
+    //debounce使觸發間隔為20毫秒以上
+    function debounce(func, wait = 10, immediate = true) {
+      var timeout;
+      return function () {
+        var context = this, args = arguments;
+        var later = function () {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+      };
+    }
+
+    const sliderImages = document.querySelectorAll('.slide-in'); //取得所有.slide-in的圖片元素
+
+    function checkSlide(e) {
+      sliderImages.forEach(sliderImage => {
+        // 取得圖片的定位點（卷軸垂直位移量＋視窗高度）- 圖片高度
+        const slideInAt = (window.scrollY + window.innerHeight) - (sliderImage.height);
+        // 取得圖片底部定位點（利用圖片頂部定位點+圖片高度取得）
+        const imageBottom = sliderImage.offsetTop + sliderImage.height;
+        // 判斷是否滾動到圖片的頂端
+        const isImgTop = slideInAt > sliderImage.offsetTop;
+        // 判斷滾動範圍是否已經超過圖片底部（卷軸垂直位移量）
+        const isNotScrolledPast = window.scrollY < imageBottom;
+
+        if (isImgTop) {
+          // 透過dataset取得html裡面的data-imglink連結
+          const imageLink = sliderImage.dataset.imglink;
+          // 用setAttribute來設置取得的連結
+          sliderImage.setAttribute('src', imageLink);
+          // 增加一個事件，當圖片載入完成後套用css的動畫效果
+          sliderImage.addEventListener('load', () => {
+            sliderImage.classList.add('active');
+          });
+        }
+      })
+    }
+
+    window.addEventListener('scroll', debounce(checkSlide));//滾動視窗到定點時顯示效果
+  </script>
+
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

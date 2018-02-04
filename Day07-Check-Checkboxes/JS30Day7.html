@@ -11,7 +11,7 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
 
-  <title>JS30Day6-Check-Checkboxes-BulbCat</title>
+  <title>JS30Day7-Check-Checkboxes-BulbCat</title>
 </head>
 
 <body>
@@ -55,30 +55,30 @@
   </div>
 
   <!-- Optional JavaScript -->
-<script>
-        const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]'); // 選取所有checkbox
-        let lastChecked;
+  <script>
+    const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]'); // 選取所有checkbox
+    let lastChecked;
 
-          function handleCheck(e) {
-          let inBetween = false;
-          if (e.shiftKey && this.checked) {
-            // 當前點選的checkbox開始記錄到最後一個點選的checkbox關閉標記
-            checkboxes.forEach(checkbox => {
-              if (checkbox === this || checkbox === lastChecked) {
-                inBetween = !inBetween;
-                console.log('STarting to check them inbetween!');
-              }
-              if (inBetween) {
-                checkbox.checked = true;
-              }
-            });
+    function handleCheck(e) {
+      let inBetween = false;
+      if (e.shiftKey && this.checked) {
+        // 當前點選的checkbox開始記錄到最後一個點選的checkbox關閉標記
+        checkboxes.forEach(checkbox => {
+          if (checkbox === this || checkbox === lastChecked) {
+            inBetween = !inBetween;
+            console.log('STarting to check them inbetween!');
           }
-          lastChecked = this;
-        }
+          if (inBetween) {
+            checkbox.checked = true;
+          }
+        });
+      }
+      lastChecked = this;
+    }
 
-        checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));//使用forEach來加入addEventListener
+    checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));//使用forEach來加入addEventListener
 
-</script>
+  </script>
 
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
