@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>JS30Day11-Follow-Along-Links-BulbCat</title>
+  </head>
+  <body>
+    <nav>
+      <ul class="menu">
+        <li>
+          <a href="">Home</a>
+        </li>
+        <li>
+          <a href="">Order Status</a>
+        </li>
+        <li>
+          <a href="">Tweets</a>
+        </li>
+        <li>
+          <a href="">Read Our History</a>
+        </li>
+        <li>
+          <a href="">Contact Us</a>
+        </li>
+      </ul>
+    </nav>
+  
+    <div class="wrapper">
+      <p>Lorem ipsum dolor sit amet,
+        <a href="">consectetur</a> adipisicing elit. Est
+        <a href="">explicabo</a> unde natus necessitatibus esse obcaecati distinctio, aut itaque, qui vitae!</p>
+      <p>Aspernatur sapiente quae sint
+        <a href="">soluta</a> modi, atque praesentium laborum pariatur earum
+        <a href="">quaerat</a> cupiditate consequuntur facilis ullam dignissimos, aperiam quam veniam.</p>
+      <p>Cum ipsam quod, incidunt sit ex
+        <a href="">tempore</a> placeat maxime
+        <a href="">corrupti</a> possimus
+        <a href="">veritatis</a> ipsum fugit recusandae est doloremque? Hic,
+        <a href="">quibusdam</a>, nulla.</p>
+      <p>Esse quibusdam, ad, ducimus cupiditate
+        <a href="">nulla</a>, quae magni odit
+        <a href="">totam</a> ut consequatur eveniet sunt quam provident sapiente dicta neque quod.</p>
+      <p>Aliquam
+        <a href="">dicta</a> sequi culpa fugiat
+        <a href="">consequuntur</a> pariatur optio ad minima, maxime
+        <a href="">odio</a>, distinctio magni impedit tempore enim repellendus
+        <a href="">repudiandae</a> quas!</p>
+    </div>
+  
+
+    <!-- Optional JavaScript -->
+    <script>
+      // 取得HTML中所有的a元素
+      const triggers = document.querySelectorAll('li a');
+      // 建立一個span來放置highlight效果
+      const highlight = document.createElement('span');
+      highlight.classList.add('highlight');
+      // 將建立的span加到頁面append
+      document.body.append(highlight);
+  
+      // 效果
+      function highlightLink() {
+        // getBoundingClientRect:取得返回目標元素的大小與相對於瀏覽器視窗的位置資訊
+        const linkCoords = this.getBoundingClientRect();
+        // console.log(linkCoords);
+        // 建立一個coords物件來存放會使用的寬高與定位資訊
+        const coords = {
+          width: linkCoords.width,
+          height: linkCoords.height,
+          left: linkCoords.left + window.scrollX,
+          top: linkCoords.top + window.scrollY
+        }
+        // 設定highlight效果的寬高及定位
+        highlight.style.width = `${coords.width}px`;
+        highlight.style.height = `${coords.height}px`;
+        highlight.style.transform = `translate(${coords.left}px, ${coords.top}px`;
+      }
+  
+      // 監聽所有a元素的滑鼠移入，觸發highlightLink
+      triggers.forEach(a => a.addEventListener('mouseenter', highlightLink));
+    </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,58 +1,65 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>JS30Day-Shadow-Move-Effect-BulbCat</title>
-  </head>
-  <body>
-    <div class="hero">
-      <h1 contenteditable>☀ WOAH! ☀</h1>
-    </div>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
 
-    <!-- Optional JavaScript -->
-    <script>
-      const hero = document.querySelector('.hero');
-      const text = document.querySelector('h1');
-      const walk = 20; //設定基本偏移基準
-  
-      function shadow(e) {
-        
-        // const width = hexo.offsetWidth;
-        // const height = hexo.offsetHeight;
-        const { offsetHeight: height,
-                offsetWidth: width } = hero;
-        let { offsetX: x,
-              offsetY: y  } = e;
-              console.log(x,y);
-        // 如果在目標區域外，則在加上目標座標值
-        if (this !== e.target) {
-          x = x + e.target.offsetLeft;
-          y = y + e.target.offsetTop;
-        }
-  
-        const xWalk = Math.round((x / width * walk) - (walk/2));
-        const yWalk = Math.round((y / height * walk) - (walk/2));
-        
-        text.style.textShadow = `
+  <title>JS30Day10-Shadow-Move-Effect-BulbCat</title>
+</head>
+
+<body>
+  <div class="hero">
+    <h1 contenteditable>☀ WOAH! ☀</h1>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <script>
+    const hero = document.querySelector('.hero');
+    const text = document.querySelector('h1');
+    const walk = 20; //設定基本偏移基準
+
+    function shadow(e) {
+
+      // const width = hexo.offsetWidth;
+      // const height = hexo.offsetHeight;
+      const { offsetHeight: height,
+        offsetWidth: width } = hero;
+      let { offsetX: x,
+        offsetY: y } = e;
+      console.log(x, y);
+      // 如果在目標區域外，則在加上目標座標值
+      if (this !== e.target) {
+        x = x + e.target.offsetLeft;
+        y = y + e.target.offsetTop;
+      }
+
+      const xWalk = Math.round((x / width * walk) - (walk / 2));
+      const yWalk = Math.round((y / height * walk) - (walk / 2));
+
+      text.style.textShadow = `
           ${xWalk}px ${yWalk}px 0px rgba(0, 0, 0, 0.5),
           ${xWalk * -1}px ${yWalk}px 0px rgba(255, 0, 0, 0),
           ${yWalk}px ${xWalk * -1}px 0px rgba(0, 255, 0, 0),
           ${yWalk * -1}px ${xWalk}px 0px rgba(0, 0, 255, 0)
         `
-      }
-      hero.addEventListener('mousemove', shadow);
-    </script>
+    }
+    hero.addEventListener('mousemove', shadow);
+  </script>
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>
