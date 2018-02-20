@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>JS30Day12-Speech-Synthesis-BulbCat</title>
+</head>
+
+<body>
+  <div class="voiceinator">
+
+    <h1>The Voiceinator 3000</h1>
+
+    <select name="voice" id="voices">
+      <option value="">Select A Voice</option>
+    </select>
+
+    <label for="rate">
+      <spen>Rate:</spen>
+    </label>
+    <input name="rate" type="range" min="0.4" max="1.4" value="1" step="0.2">
+
+    <label for="pitch">
+      <spen>Pitch:</spen>
+    </label>
+
+    <input name="pitch" type="range" min="0.4" max="1.4" value="1" step="0.2">
+    <label>
+      <spen>輸入內容:</spen>
+    </label>
+    <textarea name="text">你好嗎 我是David 怎麼了</textarea>
+    <button id="stop">Stop!</button>
+    <button id="speak">Speak</button>
+
+  </div>
+
+  <!-- Optional JavaScript -->
+  <script>
+    // SpeechSynthesisUtterance();設置語音服務應讀取的文字內容及播放的屬性()
+    const msg = new SpeechSynthesisUtterance();
+    let voices = [];
+    const voicesDropdown = document.querySelector('[name="voice"]');
+    const options = document.querySelectorAll('[type="range"], [name="text"]');
+    const speakButton = document.querySelector('#speak');
+    const stopButton = document.querySelector('#stop');
+
+    // 使html中的輸入欄位成為SpeechSynthesisUtterance要使用的值
+    msg.text = document.querySelector('[name="text"]').value
+
+    // 取得語系資訊 
+    function populateVoices() {
+      voices = this.getVoices();
+      // 將所有語系塞進下拉選單中
+      voicesDropdown.innerHTML = voices
+        // 使用filter篩選出包含zh及en的語系
+        .filter(voice => voice.lang.includes('zh-CN') || voice.lang.includes('zh-HK'))
+        // 篩選後的array透過map把資料組成html
+        .map(voice => `<option value=${voice.name}>${voice.name} (${voice.lang})</option>`)
+        // 用join來合併且消除原本陣列的逗點
+        .join('');
+    }
+
+    // 播放切換
+    function toggle(starOver = true) {
+      speechSynthesis.cancel();
+      if (starOver) {
+        speechSynthesis.speak(msg);
+      }
+    }
+
+    // 設定選擇的發音語系
+    function setVoice() {
+      msg.voice = voices.find(voice => voice.name === this.value);
+      toggle();
+    }
+
+    // 設定速率跟音準
+    function setOption() {
+      //console.log(this.name, this.value);
+      msg[this.name] = this.value;
+      toggle();
+    }
+
+    // SpeechSynthesis監聽語音清單變更後進行語系清單的更新
+    speechSynthesis.addEventListener('voiceschanged', populateVoices);
+    // 監聽語系選單，選擇後切換語系
+    voicesDropdown.addEventListener('change', setVoice);
+    // 監聽速率跟音準控制條，移動後設定
+    options.forEach(option => option.addEventListener('change', setOption));
+    // 播放按鈕
+    speakButton.addEventListener('click', toggle);
+    // 停止按鈕
+    stopButton.addEventListener('click', () => toggle(false));
+  </script>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
