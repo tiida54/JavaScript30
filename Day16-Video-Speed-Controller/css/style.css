@@ -16,10 +16,9 @@ body {
   
   .wrapper {
     padding: 10px;
-    background-color: wheat;
     display:flex;
     min-width:850px;
-    height: 80vh;
+
   }
   
   .speed {
