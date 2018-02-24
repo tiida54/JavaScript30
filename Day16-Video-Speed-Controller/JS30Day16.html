@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>JS30Day16-Video-Speed-Controller-BulbCat</title>
+  </head>
+  <body>
+      <div class="wrapper">
+          <video class="flex" width="765" height="430" src="https://player.vimeo.com/external/194837908.sd.mp4?s=c350076905b78c67f74d7ee39fdb4fef01d12420&profile_id=164" loop controls></video>
+          <div class="speed">
+            <div class="speed-bar">1×</div>
+          </div>
+        </div>
+
+    <!-- Optional JavaScript -->
+    <script>
+        const speed = document.querySelector('.speed');
+        const bar = speed.querySelector('.speed-bar');
+        const video = document.querySelector('.flex');
+      
+        function handleMove (e) {
+          // 取得觸發點位置（滑鼠位於整頁頂端的Y軸定位-speed框到整頁頂端的距離）
+          const y = e.pageY - this.offsetTop;
+          // 設定百分比(y / speed框的高度)
+          const percent = y / this.offsetHeight;
+          const min = 0.2;
+          const max = 2;
+          // 用Math.round來計算取得四捨五入的百分比值
+          const height = Math.round(percent * 100) + '%';
+          const playbackRate = percent * (max - min) + min;
+          // 調整speed-bar的樣式高度
+          bar.style.height = height;
+          // 用toFixed(2)來設定最多取得小數點後兩位，顯示於speed-bar上
+          bar.textContent = playbackRate.toFixed(2) + 'x';
+          // 控制影片的速率
+          video.playbackRate = playbackRate;
+        }
+      
+        speed.addEventListener('mousemove', handleMove);
+      
+      </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
