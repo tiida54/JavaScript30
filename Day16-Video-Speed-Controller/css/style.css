@@ -19,7 +19,7 @@ body {
     background-color: wheat;
     display:flex;
     min-width:850px;
-    height: 50vh;
+    height: 80vh;
   }
   
   .speed {
