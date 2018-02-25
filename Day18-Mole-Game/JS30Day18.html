@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <!-- googleapis 外嵌字體 -->
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>JS30Day18-Mole-Game-BulbCat</title>
+</head>
+
+<body>
+  <h2>Whack-a-mole!
+    <span class="score">0</span>
+  </h2>
+  <div class="controllArea">
+    <div class="startBtn" onClick="startGame()">
+      <button data-time="10" class="timer__button">Start! 10 Secs</button>
+    </div>
+  </div>
+
+  <div class="game">
+    <div class="hole hole1">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole2">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole3">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole4">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole5">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole6">
+      <div class="mole"></div>
+    </div>
+  </div>
+  <div class="display">
+    <h1 class="display__time-left"></h1>
+  </div>
+  <!-- Optional JavaScript -->
+  <script>
+    /**  取得頁面元素 */
+    const holes = document.querySelectorAll('.hole');
+    const scoreBoard = document.querySelector('.score');
+    const moles = document.querySelectorAll('.mole');
+
+    /** 預設變數設定 */
+    let lastHole; // 最後一次出現的地鼠洞
+    let timeUP = false; // 遊戲時間是否結束戳記
+    let score = 0; // 分數
+
+    /** 地鼠出現後存在時間，傳入最小&最大值，回傳一個區間亂數 */
+    function randomTime(min, max) {
+      return Math.round(Math.random() * (max - min) + min);
+    }
+
+    /** 地鼠出現的洞 */
+    function randomHole(holes) {
+      // 取得地鼠洞數量區間內隨機一個洞
+      const idx = Math.floor(Math.random() * holes.length);
+      const hole = holes[idx];
+      if (hole === lastHole) {
+        return randomHole(holes);
+      }
+      lastHole = hole;
+      return hole;
+    }
+
+    /**  地鼠出現 */
+    function peep() {
+      // 取得存在時間
+      const time = randomTime(300, 1000);
+      // 取得出現的洞
+      const hole = randomHole(holes);
+      // 移除已槌標記
+      hole.querySelector('.mole').classList.remove('bonked');
+      // 增加出現的動畫class
+      hole.classList.add('up');
+      // 設定存在時間到的時候移除出現動畫，且若遊戲時間未結束就繼續跑下一run
+      setTimeout(() => {
+        hole.classList.remove('up');
+        if (!timeUP) peep();
+      }, time)
+    }
+
+    /** 打地鼠 */
+    function bonk(e) {
+      // isTrusted防止腳本操作，class有bonked代表已被搥過，若符合上述兩者則不進行
+      if (!e.isTrusted || this.classList.contains('bonked')) return;
+      // 替被打到的地鼠加上bonked的樣式
+      this.classList.add('bonked');
+      // 打到就移除出現的動畫
+      this.classList.remove('up');
+      // 加分
+      score++;
+      // 更新顯示分數
+      scoreBoard.textContent = score;
+    }
+
+    /** 開始遊戲 */
+    function startGame() {
+      timeUP = false;
+      scoreBoard.textContent = 0;
+      score = 0;
+      // 執行地鼠出現函式
+      peep();
+      // 設定十秒
+      setTimeout(() => timeUP = true, 10000);
+    }
+
+    moles.forEach(mole => mole.addEventListener('click', bonk));
+  </script>
+  <script>
+    const timerDisplay = document.querySelector('.display__time-left');
+    const buttons = document.querySelectorAll('[data-time]');
+    let countdown; // 外層變數，供計時器主體使用
+
+    /** 計時器 **/
+    function timer(seconds) {
+      // 新的計時器被啟動時，先把原本的setInterval刪除
+      clearInterval(countdown);
+      // 取得時間
+      const now = Date.now();
+      const timeStamp = now + seconds * 1000;
+      // 倒數計時與結束的時間顯示function
+      displayTimeLeft(seconds);
+
+      // 計時器執行在countdown裡面方便接著清除使用
+      countdown = setInterval(() => {
+        // 取得要跑的總時長
+        const secondsLeft = Math.round((timeStamp - Date.now()) / 1000);
+
+        if (secondsLeft < 0) {
+          clearInterval(countdown);
+          return;
+        }
+        // 更新時間
+        displayTimeLeft(secondsLeft);
+      }, 1000);
+
+    }
+
+    // 顯示倒數時間
+    function displayTimeLeft(seconds) {
+      // 透過Math.floor來取得分鐘數(傳入秒數/60取得最大整數)
+      const minutes = Math.floor(seconds / 60);
+      // 用％來取得傳入秒數除60的餘數（扣除分鐘數後的秒數）
+      const remainderSeconds = seconds % 60;
+      //console.log({minutes, remainderSeconds});
+      // 顯示秒數的部分若小於0數字前補0
+      const display = `${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
+      // 顯示對應時間
+      document.title = display;
+      timerDisplay.textContent = display;
+    }
+
+    // 開始計時（HTML畫面設定好的時間）
+    function startTimer() {
+      // 取得html中設定的data-time（秒數）
+      const seconds = parseInt(this.dataset.time);
+      // 傳入計時器function
+      timer(seconds);
+    }
+
+    // 替每個時間按鈕加上監聽click事件，用來啟動計時function
+    buttons.forEach(button => button.addEventListener('click', startTimer));
+
+    // HTML中的input自訂倒數時間輸入欄位監聽
+    document.customForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      // 取得input欄位的值
+      const mins = this.minutes.value;
+      // 傳入計時器
+      timer(mins * 60);
+      // 清空input
+      this.reset();
+    })
+  </script>
+  
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
