@@ -1,0 +1,160 @@
+body {
+    margin: 0 auto;
+    /*max-width: 50em;*/
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 16px;
+    /*Georgia*/
+    line-height: 1.5;
+    /*padding: 4em 1em;*/
+    color: #50514f;
+    /*Secondary colors*/
+    background-color: #4286f4;
+}
+
+h1,
+h2,
+strong {
+    color: #333;
+    font-family: 'Amatic SC', cursive;
+    font-size: 20rem;
+}
+
+h2 {
+    margin-top: 0.1em;
+    padding-top: 0.1em;
+}
+
+code,
+pre {
+    /*Secondary colors*/
+    background: #f5f7f9;
+    border-bottom: 1px solid #d8dee9;
+    color: #a7adba;
+}
+
+code {
+    padding: 2px 4px;
+    vertical-align: text-bottom;
+}
+
+pre {
+    padding: 1em;
+    border-left: 2px solid #69c;
+    /*Secondary colors*/
+}
+
+a {
+    color: #ea4435;
+    /*Primary color*/
+}
+
+
+/* reset img 圖片自適應伸縮 */
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.bg-cover {
+    background-position: center center;
+    /*背景置中*/
+    background-size: cover;
+}
+
+.bg-attachment {
+    background-attachment: fixed;
+    /*背景固定*/
+}
+
+
+/*header*/
+
+header {
+    min-height: 40vh;
+    /*強制瀏覽器高度*/
+    background: #70C1B3 url('../img/bg-photo.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    /*背景固定*/
+    line-height: 1.2;
+    /*padding: 10vw 2em;*/
+    /*text-align: center;*/
+}
+
+header img {
+    display: inline-block;
+    height: 120px;
+    vertical-align: top;
+    width: 120px;
+}
+
+header h1 {
+    color: white;
+    font-size: 2.5em;
+    font-weight: 300;
+}
+
+header a {
+    border: 1px solid #e81c4f;
+    border-radius: 290486px;
+    color: white;
+    font-size: 0.6em;
+    letter-spacing: 0.2em;
+    padding: 1em 2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: none 200ms ease-out;
+    transition-property: color, background;
+}
+
+header a:hover {
+    background: #e81c4f;
+    color: white;
+}
+
+
+/*.wrap*/
+
+main,
+section {
+    display: flex;
+    height: 100vh;
+    padding: 10px;
+    margin: 40px;
+    background-color: #4286f4;
+    /* 修改以下值試試看 flex-start | flex-end | center | space-between | space-around; */
+    justify-content: center;
+    /* 修改以下值試試看 flex-start | flex-end | center | baseline | stretch; */
+    align-items: flex-start;
+    font-size: 1rem;
+}
+
+
+/* logo */
+
+.logo {
+    padding: 5px;
+    width: 70px;
+    height: 70px;
+    background: url(../img/150*150.png);
+}
+
+.card {
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.25);
+}
+
+.card:hover {
+    border-color: #ffcc00;
+    box-shadow: 0 0 10px #ffcc00;
+    transition: transform 0.2s linear;
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+.card img {
+    width: auto;
+    height: 220px;
+}
