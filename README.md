@@ -20,7 +20,7 @@
 
 * [個人實作-GitHub](https://github.com/tiida54/JavaScript30)
 
-* [實作列表-Blog](https://tiida54.github.io/)
+* [實作列表-Blog](https://goo.gl/6wbEJr)
 
 ---
 
@@ -71,7 +71,7 @@
 
 | 篇數 | 名稱 | Demo |
 | -------- | -------- | -------- |
-| List| JS30-All-List | [JS30-All-List]() |
+| List| JS30-All-List | [JS30-All-List](https://goo.gl/YFytqy) |
 | Day01    | JavaScript-Drum-Kit     | [JS30-Day01](https://goo.gl/nq2MyR)     |
 | Day02    | JavaScript-Clock     | [JS30-Day02](https://goo.gl/bDUWWz)     |
 | Day03    | JavaScript-Variables     | [JS30-Day03](https://goo.gl/1ty9Pg)     |
